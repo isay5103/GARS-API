@@ -15,7 +15,7 @@ class Tema(BaseModel):
 @app.get("/temas/")
 def get_temas():
     return [
-    {"id": 1, "tema": "Apple"},
+    {"id": 1, "tema": "Ventilador"},
     {"id": 2, "tema": "iPhone"},
     {"id": 3, "tema": "Katy Perry"},
     {"id": 4, "tema": "Elon Musk"},
