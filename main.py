@@ -6,11 +6,19 @@ import random
 
 app = FastAPI()
 
+# Lista temporal de temas seleccionados
 temas_seleccionados = []
 
+# Modelo de entrada
 class Tema(BaseModel):
     id: int
     tema: str
+
+# ✅ Endpoint raíz para comprobar que la API está corriendo (usado por navegador o Render)
+@app.get("/")
+def root():
+    return {"status": "ok", "mensaje": "API de temas corriendo correctamente en Render 🎉"}
+
 
 @app.get("/temas/")
 def get_temas():
@@ -117,20 +125,24 @@ def get_temas():
     {"id": 100, "tema": "CodePipeline"}
     ]
 
+# Limpiar la lista de temas seleccionados
 @app.post("/temas/limpiar/")
 def limpiar_temas():
     temas_seleccionados.clear()
     return {"message": "Lista de temas limpiada"}
 
+# Agregar un tema seleccionado a la lista
 @app.post("/temas/seleccionar/")
 def seleccionar_tema(tema: Tema):
     temas_seleccionados.append(tema.dict())
     return {"message": "Tema agregado", "temas_seleccionados": temas_seleccionados}
 
+# Obtener temas seleccionados actuales
 @app.get("/temas/seleccionados/")
 def get_temas_seleccionados():
     return temas_seleccionados
 
+# Generar grafo con pesos simulados
 @app.post("/grafo/generar/")
 def generar_grafo():
     if not temas_seleccionados:
